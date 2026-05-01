@@ -1,1 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Gran Caldas - Arroz Paisa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #D97706;
+            --primary-dark: #B45309;
+            --success: #16A34A;
+            --text-dark: #1F2937;
+            --text-light: #6B7280;
+            --white: #FFFFFF;
+            --cream: #FEF3C7;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(180deg, #FFFBEB 0%, #FEF3C7 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        .header {
+            background: rgba(255,255,255,0.95);
+            padding: 20px 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo-container { max-width: 200px; margin: 0 auto; }
+        .logo { width: 100%; height: auto; object-fit: contain; }
+        .hero {
+            position: relative;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #D97706 0%, #EA580C 100%);
+        }
+        .hero-image-container {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            overflow: hidden;
+        }
+        .hero-image {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            animation: zoom 20s ease-in-out infinite alternate;
+        }
+        @keyframes zoom { from { transform: scale(1); } to { transform: scale(1.1); } }
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--white);
+        }
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 30px;
+        }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        .scroll-indicator svg { width: 40px; height: 40px; fill: var(--white); }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-15px); }
+        }
+        .info-section { padding: 60px 20px; background: var(--white); }
+        .info-container { max-width: 500px; margin: 0 auto; text-align: center; }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+        .section-description {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .feature-card {
+            background: var(--cream);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        .feature-icon { font-size: 2rem; margin-bottom: 8px; }
+        .feature-title { font-size: 0.9rem; font-weight: 600; }
+        .menu-section { padding: 60px 20px; background: var(--white); }
+        .menu-grid {
+            display: grid;
+            gap: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .menu-item {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+        .menu-item-image {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+        }
+        .menu-item-content { padding: 15px; }
+        .menu-item-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 5px; }
+        .menu-item-description { font-size: 0.85rem; color: var(--text-light); margin-bottom: 10px; }
+        .menu-item-price { font-size: 1.2rem; font-weight: 700; color: var(--primary-dark); }
+        .cta-section {
+            padding: 50px 20px;
+            background: linear-gradient(180deg, #FEF3C7 0%, #FDE68A 100%);
+        }
+        .cta-container { max-width: 350px; margin: 0 auto; }
+        .cta-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .cta-subtitle {
+            font-size: 0.95rem;
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 12px;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
+        .btn-delivery {
+            background: linear-gradient(135deg, #D97706 0%, #EA580C 100%);
+            color: var(--white);
+        }
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #16A34A 0%, #059669 100%);
+            color: var(--white);
+        }
+        .btn svg { width: 22px; height: 22px; fill: currentColor; }
+        .footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .footer-logo { font-size: 1.3rem; font-weight: 700; color: var(--primary); margin-bottom: 12px; }
+        .footer-info { font-size: 0.85rem; opacity: 0.8; margin-bottom: 15px; }
+        .copyright { font-size: 0.75rem; opacity: 0.6; }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .pulse { animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(217,119,6,0.7); }
+            70% { box-shadow: 0 0 0 12px rgba(217,119,6,0); }
+            100% { box-shadow: 0 0 0 0 rgba(217,119,6,0); }
+        }
+        .pulse-wa { animation: pulseWa 2s infinite; }
+        @keyframes pulseWa {
+            0% { box-shadow: 0 0 0 0 rgba(22,163,74,0.7); }
+            70% { box-shadow: 0 0 0 12px rgba(22,163,74,0); }
+            100% { box-shadow: 0 0 0 0 rgba(22,163,74,0); }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <img src="WhatsApp%20Image%202026-04-30%20at%2011.43.37%20AM.jpeg" alt="Logo El Gran Caldas" class="logo">
+        </div>
+    </header>
 
+    <section class="hero">
+        <div class="hero-image-container">
+            <img src="WhatsApp%20Image%202026-04-30%20at%2012.16.00%20PM.jpeg" alt="Arroz Paisa" class="hero-image">
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">El Gran Caldas</h1>
+            <p class="hero-subtitle">El Auténtico Sabor del Arroz Paisa</p>
+        </div>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+        </div>
+    </section>
+
+    <section class="info-section">
+        <div class="info-container fade-in">
+            <h2 class="section-title">Tradición y Sabor</h2>
+            <p class="section-description">Preparamos el mejor arroz paisa con receta tradicional. Ingredientes frescos y mucho amor en cada plato.</p>
+            <div class="features">
+                <div class="feature-card"><div class="feature-icon">🍚</div><div class="feature-title">Arroz Fresco</div></div>
+                <div class="feature-card"><div class="feature-icon">🥘</div><div class="feature-title">Sazón Casera</div></div>
+                <div class="feature-card"><div class="feature-icon">🚀</div><div class="feature-title">Rápido Domicilio</div></div>
+                <div class="feature-card"><div class="feature-icon">⭐</div><div class="feature-title">Calidad Premium</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="menu-section">
+        <div class="info-container fade-in">
+            <h2 class="section-title">Nuestros Favoritos</h2>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <div class="menu-item-image">🍛</div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">Arroz Paisa Completo</h3>
+                        <p class="menu-item-description">Carne, chicharrón, huevo, plátano, aguacate</p>
+                        <div class="menu-item-price">$25.000</div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-image">🥗</div>
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-title">Arroz Vegetariano</h3>
+                        <p class="menu-item-description">Verduras frescas y queso campesino</p>
+                        <div class="menu-item-price">$20.000</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-container fade-in">
+            <h2 class="cta-title">¡Pide Ahora!</h2>
+            <p class="cta-subtitle">Disfruta en casa el mejor arroz paisa</p>
+            <a href="https://wa.me/573202722228?text=Hola!%20Quiero%20pedir%20domicilio%20🍚" class="btn btn-delivery pulse" target="_blank">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                Pedir Domicilio
+            </a>
+            <a href="https://wa.me/573202722228?text=Hola!%20Quiero%20reservar%20mesa%20📅" class="btn btn-whatsapp pulse-wa" target="_blank">
+                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                Reservar Mesa
+            </a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-logo">El Gran Caldas</div>
+        <div class="footer-info">
+            <p>📍 Visítanos</p>
+            <p>🕐 Abierto todos los días</p>
+            <p>📞 +57 320 272 2228</p>
+        </div>
+        <div class="copyright">© 2024 El Gran Caldas. Todos los derechos reservados.</div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        document.querySelector('.scroll-indicator').addEventListener('click', () => {
+            document.querySelector('.info-section').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
